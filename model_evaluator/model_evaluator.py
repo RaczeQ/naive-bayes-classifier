@@ -1,8 +1,8 @@
 import logging
+from exceptions import NotEvaluatedError
 
 from confusion_matrix import ConfusionMatrix
 from naive_bayes import NaiveBayes
-from exceptions import NotEvaluatedError
 
 
 class ModelEvaluator(object):

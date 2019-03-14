@@ -5,7 +5,10 @@ from exceptions import EmptyDiscretizeFunctionError
 import numpy as np
 import pandas as pd
 
-from data_utils import *
+from data_utils import (CONTINUOUS_FEATURES_KEY, DISCRETE_FEATURES_KEY,
+                        PATH_KEY, discretize_continuous_features, load_csv,
+                        split_data_by_class)
+
 
 class DataModel(object):
     _df = None
