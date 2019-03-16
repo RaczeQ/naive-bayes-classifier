@@ -64,10 +64,10 @@ class Tester(object):
                     model_evaluator = ModelEvaluator(train_set, test_set, classes_list)
                     model_evaluator.evaluate()
                     f_scores.append(model_evaluator.get_f_score())
-                    logging.error("[Parameters Tester][{}][CV{:2d}][{:2d}] FCS: {}".format(dataset, fold[0], a, f_scores[-1]))
+                    logging.error("[Parameters Tester][{}][CV{:02d}][{:03d}] FCS: {}".format(dataset, fold[0], a, f_scores[-1]))
                     a += 1
             f_score_mean = sum(f_scores) / len(f_scores)
-            logging.error("[Parameters Tester][{}][CV{:2d}] Best FCS: {}, Mean FCS {}".format(dataset, fold[0], max(f_scores), f_score_mean))
+            logging.error("[Parameters Tester][{}][CV{:02d}] Best FCS: {}, Mean FCS {}".format(dataset, fold[0], max(f_scores), f_score_mean))
             self.append_result({'dataset':dataset.name, 'fold':fold[0], 'f_score':f_score_mean, 'permutation':-1})
             if f_score_mean > best_mean_fcs:
                 self.best_fold[dataset] = fold
@@ -114,7 +114,7 @@ class Tester(object):
                     model_evaluator = ModelEvaluator(train_set, test_set, classes_list)
                     model_evaluator.evaluate()
                     f_scores.append(model_evaluator.get_f_score())
-                    logging.error("[Parameters Tester][{}][Perm {:08d}][{:2d}] FCS: {}".format(dataset, p+1, a, f_scores[-1]))
+                    logging.error("[Parameters Tester][{}][Perm {:08d}][{:03d}] FCS: {}".format(dataset, p+1, a, f_scores[-1]))
                     a += 1
             f_score_mean = sum(f_scores) / len(f_scores)
             logging.error("[Parameters Tester][{}][Perm {:08d}] Best FCS: {}, Mean FCS {}".format(dataset, p+1, max(f_scores), f_score_mean))
