@@ -12,7 +12,7 @@ from math_utils import (DiscretizeParam, bucket_discretize,
 from model_evaluator import ModelEvaluator
 
 DATASETS = [IRIS_DATASET, PIMA_DIABETES_DATASET, GLASS_DATASET, WINE_DATASET]
-FOLDS = [(2, 15), (3, 10), (5, 6), (10, 3)] # Always test 30 models
+FOLDS = [(2, 75), (3, 50), (5, 30), (10, 15)] # Always test 150 models
 BUCKETS = range(3, 11)
 DISCRETIZE_FUNCTIONS = [bucket_discretize, frequency_discretize, kbins_discretize]
 
