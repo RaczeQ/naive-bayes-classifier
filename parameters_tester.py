@@ -34,9 +34,11 @@ class Tester(object):
             self.save_result()
             self.result_df = self.result_df.iloc[0:0]
 
-    def save_result(self):
-        self.result_df.to_csv('test_results/{}_{}.csv'.format(self.file_name, self.file_no), encoding='utf-8')
+    def save_result(self): 
+        file_path = 'test_results/{}_{}.csv'.format(self.file_name, self.file_no)
+        self.result_df.to_csv(file_path, encoding='utf-8')
         self.file_no += 1
+        logging.error("[Parameters Tester] Saved result to path {} with {} rows".format(file_path, len(self.result_df.index))) 
 
     def test(self):
         try:
