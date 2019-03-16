@@ -60,7 +60,7 @@ class Tester(object):
             f_scores = []
             a = 1
             for _ in range(fold[1]):
-                for train_set, test_set in dm.generate_k_folds_strategized(fold[0]):
+                for train_set, test_set in dm.generate_k_folds_stratified(fold[0]):
                     model_evaluator = ModelEvaluator(train_set, test_set, classes_list)
                     model_evaluator.evaluate()
                     f_scores.append(model_evaluator.get_f_score())
@@ -110,7 +110,7 @@ class Tester(object):
             f_scores = []
             a = 1
             for _ in range(self.best_fold[dataset][1]):
-                for train_set, test_set in dm.generate_k_folds_strategized(self.best_fold[dataset][0]):
+                for train_set, test_set in dm.generate_k_folds_stratified(self.best_fold[dataset][0]):
                     model_evaluator = ModelEvaluator(train_set, test_set, classes_list)
                     model_evaluator.evaluate()
                     f_scores.append(model_evaluator.get_f_score())

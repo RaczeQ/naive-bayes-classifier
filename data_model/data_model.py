@@ -103,7 +103,7 @@ class DataModel(object):
             test_obj = DataModel(test, self._discrete_features, self._discrete_features_values, self._continuous_features, self.smooth)
             yield train_obj, test_obj
 
-    def generate_k_folds_strategized(self, k_fold):
+    def generate_k_folds_stratified(self, k_fold):
         folds_dict = {k: np.array_split(
             data, k_fold) for k, data in split_data_by_class(self._df.sample(frac=1)).items()}
         folds = [pd.concat([v[k] for _, v in folds_dict.items()],
