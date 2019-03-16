@@ -10,5 +10,5 @@ def calculate_probability(x, mean, std):
     if std > 0.0:
         exponent = np.exp(-(math.pow(x-mean,2)/(2*math.pow(std,2))))
         result = (1 / (math.sqrt(2*math.pi) * std)) * exponent
-        logging.info("[Naive Bayes Model] Calculated probability: ({},{},{}) = {}".format(x, mean, std, result))
+        logging.debug("[Naive Bayes Model] Calculated probability: ({},{},{}) = {}".format(x, mean, std, result))
     return result

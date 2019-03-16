@@ -45,7 +45,7 @@ class ModelEvaluator(object):
                     result.TN += 1
                 else:
                     result.FN += 1
-        logging.info("[Model Evaluator] Calculated confusion matrix for {} class".format(meta_class))
+        logging.info("[Model Evaluator] Calculated confusion matrix for '{}' class".format(meta_class))
         logging.debug("[Model Evaluator] Confusion Matrix\n{}".format(result))
         self.class_cms[meta_class] = result
         return result

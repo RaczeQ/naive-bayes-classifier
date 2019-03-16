@@ -103,5 +103,14 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-#vsc
+# vsc
 .vscode/
+
+# visualizations content
+data_visualizer/visualizations/*
+
+# test_results
+test_results/*
+
+# logs
+logs/*

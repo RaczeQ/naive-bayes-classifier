@@ -37,12 +37,12 @@ class NaiveBayes(object):
         for c in self.classes_list:
             for f in self.discrete_features[c].keys():
                 value = self.discrete_features[c][f][vector[f]]
-                logging.info('Discrete [{}][{}][{}] = {}'.format(c, f, vector[f], value))
+                logging.debug('Discrete [{}][{}][{}] = {}'.format(c, f, vector[f], value))
                 if value > 0:
                     prob[c] += log(value)
             for f in self.continuous_features[c].keys():
                 value = calculate_probability(vector[f], self.continuous_features[c][f]['mean'], self.continuous_features[c][f]['std'])
-                logging.info('Continuous [{}][{}][{}] = {}'.format(c, f, vector[f], value))
+                logging.debug('Continuous [{}][{}][{}] = {}'.format(c, f, vector[f], value))
                 if value > 0:
                     prob[c] += log(value)
         return max(prob, key=prob.get)

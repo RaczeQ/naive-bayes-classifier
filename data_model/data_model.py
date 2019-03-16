@@ -5,8 +5,7 @@ from exceptions import EmptyDiscretizeFunctionError
 import numpy as np
 import pandas as pd
 
-from data_utils import (CONTINUOUS_FEATURES_KEY, DISCRETE_FEATURES_KEY,
-                        PATH_KEY, discretize_continuous_features, load_csv,
+from data_utils import (discretize_continuous_features, load_csv,
                         split_data_by_class)
 
 
@@ -25,25 +24,19 @@ class DataModel(object):
         self._continuous_features = continous_features
 
     @classmethod
-    def generate_from_file(self, data_dict, smooth=True, discretize=False, discretize_function=None, discrete_columns=[]):
-        _df = load_csv(data_dict[PATH_KEY])
+    def generate_from_file(self, dataset, smooth=True, discretize_params=[]):
+        _df = load_csv(dataset.path)
         _smooth = smooth
-        _continuous_features = data_dict[CONTINUOUS_FEATURES_KEY]
-        _discrete_features = data_dict[DISCRETE_FEATURES_KEY]
-        if discretize:
-            if discretize_function == None:
-                raise EmptyDiscretizeFunctionError()
-            if len(discrete_columns) == 0:
-                discrete_columns = _continuous_features
-                _discrete_features += _continuous_features
-                _continuous_features = []
-            else:
-                _discrete_features = list(
-                    set(_discrete_features + discrete_columns))
-                _continuous_features = [
-                    c for c in _continuous_features if not c in discrete_columns]
+        _continuous_features = dataset.continuous_features
+        _discrete_features = dataset.discrete_features
+        if len(discretize_params) > 0:
+            discrete_columns = [dp.feature_name for dp in discretize_params]
+            _discrete_features = list(
+                set(_discrete_features + discrete_columns))
+            _continuous_features = [
+                c for c in _continuous_features if not c in discrete_columns]
             _df = discretize_continuous_features(
-                _df, discretize_function, discrete_columns)
+                _df, discretize_params)
             
         _discrete_features_values = {}
         for discrete_feature in _discrete_features:
@@ -130,6 +123,9 @@ class DataModel(object):
 
     def get_labels(self):
         return list(self.get_classes_column())
+
+    def get_splitted_dataframe(self):
+        return split_data_by_class(self._df)
             
     def __str__(self):
         return str(self._df)
