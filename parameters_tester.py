@@ -110,7 +110,7 @@ class Tester(object):
         permutations = self.generate_permutations(dataset)
         best_mean_fcs = 0
         for p, perm in enumerate(permutations):
-            logging.error("[Parameters Tester][{}][Perm {:08d}] Current permutation: {}".format(dataset, p+1, max(f_scores), perm))
+            logging.error("[Parameters Tester][{}][Perm {:08d}] Current permutation: {}".format(dataset, p+1, perm))
             dm = DataModel.generate_from_file(dataset, discretize_params=perm)
             classes_list = dm.get_classes_list()
             f_scores = []
