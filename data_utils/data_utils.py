@@ -60,12 +60,12 @@ def load_csv(file_path):
     return df
 
 
-def discretize_continuous_features(df, discretize_params):
+def discretize_continuous_features(dataset_name, df, discretize_params):
     for dp in discretize_params:
         col = dp.feature_name
         function = dp.discretize_function
         buckets = dp.buckets_amount
-        df[col] = df[col].apply(lambda x: function(list(df[col]), x, buckets))
+        df[col] = df[col].apply(lambda x: function(dataset_name, col, list(df[col]), x, buckets))
         logging.warning("[Data Processor] Discretized '{}' column using '{}' function into {} values.".format(
             col, function.__name__, buckets))
     return df

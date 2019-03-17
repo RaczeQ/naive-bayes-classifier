@@ -36,7 +36,7 @@ class DataModel(object):
             _continuous_features = [
                 c for c in _continuous_features if not c in discrete_columns]
             _df = discretize_continuous_features(
-                _df, discretize_params)
+                dataset.name, _df, discretize_params)
             
         _discrete_features_values = {}
         for discrete_feature in _discrete_features:
