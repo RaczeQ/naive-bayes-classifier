@@ -28,11 +28,8 @@ class Tester(object):
     def __init__(self):
         self.test()
 
-    def append_result(self, row):
-        self.result_df = self.result_df.append(row, ignore_index=True)
-        if len(self.result_df.index) == 5000:
-            self.save_result()
-            self.result_df = self.result_df.iloc[0:0]
+    def clear_result(self):
+        self.result_df = self.result_df.iloc[0:0]
 
     def save_result(self): 
         file_path = 'test_results/{}_{}.csv'.format(self.file_name, self.file_no)
@@ -40,11 +37,19 @@ class Tester(object):
         self.file_no += 1
         logging.error("[Parameters Tester] Saved result to path {} with {} rows".format(file_path, len(self.result_df.index))) 
 
+    def append_result(self, row):
+        self.result_df = self.result_df.append(row, ignore_index=True)
+        if len(self.result_df.index) == 5000:
+            self.save_result()
+            self.clear_result()
+
     def test(self):
         try:
             for dataset in DATASETS:
                 self.find_best_fold(dataset)
                 self.find_best_parameters(dataset)
+                self.save_result()
+                self.clear_result()
             logging.error(self.best_fold)
             logging.error(self.best_discretize_parameters)
             self.save_result()
@@ -105,6 +110,7 @@ class Tester(object):
         permutations = self.generate_permutations(dataset)
         best_mean_fcs = 0
         for p, perm in enumerate(permutations):
+            logging.error("[Parameters Tester][{}][Perm {:08d}] Current permutation: {}".format(dataset, p+1, max(f_scores), perm))
             dm = DataModel.generate_from_file(dataset, discretize_params=perm)
             classes_list = dm.get_classes_list()
             f_scores = []
